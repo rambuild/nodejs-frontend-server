@@ -6,11 +6,16 @@ const app = express()
 // 跨域中间件
 app.use(cors())
 
+// jwt密钥
+app.set('jwtSecret','rambuild')
+
 // bodyParser中间件
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended : false }))
 app.use(bodyParser.json())
 
+// 静态资源
+app.use('/uploads',express.static(__dirname + '/uploads'))
 
 // 引入admin后台路由
 require('./routes/admin/index')(app)

@@ -10,6 +10,8 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 
+// 引入初始化scss
+import './assets/css/style.scss'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

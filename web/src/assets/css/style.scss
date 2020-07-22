@@ -1,0 +1,97 @@
+@import './variable';
+
+// reset
+*{
+    box-sizing: border-box;
+    outline: none;
+}
+html{
+    font-size: 14px;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.2em;
+    background-color: #f1f1f1;
+}
+a{
+    color:#999;
+}
+
+// colors
+
+@each $colorKey,$color in $colors {
+    .text-#{$colorKey}{
+        color: $color;
+    }
+    .bg-#{$colorKey}{
+        background-color: $color;
+    }
+}
+
+// text-align
+@each $i in (left,center,right) {
+    .text-#{$i}{
+        text-align: $i;
+    }
+}
+
+// font-size
+@each $fsKey,$fsVal in $font-sizes {
+    .fs-#{$fsKey}{
+        font-size: $fsVal * $base-font-size;
+    }
+}
+
+// flex
+.d-flex{
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
+}
+
+@each $fKey,$fVal in $flex-jc {
+    .jc-#{$fKey}{
+        justify-content:$fVal;
+    }
+}
+
+@each $fKey,$fVal in $flex-ai {
+    .ai-#{$fKey}{
+        align-items:$fVal;
+    }
+}
+.flex-1{
+    flex: 1;
+}
+.flex-grow-1{
+    flex-grow: 1;
+}
+
+// margin和padding
+@each $typeKey,$typeVal in $spacing-types {
+    @each $direcKey,$direcVal in $spacing-direction {
+        @each $sizeKey,$sizeVal in $spacing-sizes{  
+            // .mt-0          
+            .#{$typeKey}#{$direcKey}-#{$sizeKey}{
+                #{$typeVal}-#{$direcVal}:$sizeVal * $base-spacing-size
+            }
+            // .m-0     
+            .#{$typeKey}-#{$sizeKey}{
+                #{$typeVal}:$sizeVal * $base-spacing-size
+            }
+            // .mx-0
+            .#{$typeKey}x-#{$sizeKey}{
+                #{$typeVal}-left: $sizeVal;
+                #{$typeVal}-right: $sizeVal;
+            }
+            // .my-0
+            .#{$typeKey}y-#{$sizeKey}{
+                #{$typeVal}-top: $sizeVal;
+                #{$typeVal}-bottom: $sizeVal;
+            }
+        }
+    }
+}
