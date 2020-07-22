@@ -3,8 +3,13 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
+    {
+      path: '/login',
+      component: () => import('@/views/login/login'),
+      meta: { isPublic: true }
+    },
     {
       path: '/',
       component: () => import('@/components/home'),
@@ -16,12 +21,73 @@ export default new Router({
         {
           path: '/categories/create/:id',
           component: () => import("@/views/categories/create"),
-          props:true
+          props: true
         }, {
           path: '/categories/list',
           component: () => import('@/views/categories/list')
+        },
+
+        {
+          path: '/items/create',
+          component: () => import("@/views/items/create")
+        },
+        {
+          path: '/items/create/:id',
+          component: () => import("@/views/items/create"),
+          props: true
+        }, {
+          path: '/items/list',
+          component: () => import('@/views/items/list')
+        },
+
+        {
+          path: '/heroes/create',
+          component: () => import("@/views/heroes/create")
+        },
+        {
+          path: '/heroes/create/:id',
+          component: () => import("@/views/heroes/create"),
+          props: true
+        }, {
+          path: '/heroes/list',
+          component: () => import('@/views/heroes/list')
+        },
+
+        {
+          path: '/articles/create',
+          component: () => import("@/views/articles/create")
+        },
+        {
+          path: '/articles/create/:id',
+          component: () => import("@/views/articles/create"),
+          props: true
+        }, {
+          path: '/articles/list',
+          component: () => import('@/views/articles/list')
+        },
+
+        {
+          path: '/admin_user/create',
+          component: () => import("@/views/admin_user/create")
+        },
+        {
+          path: '/admin_user/create/:id',
+          component: () => import("@/views/admin_user/create"),
+          props: true
+        }, {
+          path: '/admin_user/list',
+          component: () => import('@/views/admin_user/list')
         }
       ]
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (!to.meta.isPublic && !sessionStorage.getItem('token')) {
+    return next('/login')
+  }
+  next()
+})
+
+export default router
