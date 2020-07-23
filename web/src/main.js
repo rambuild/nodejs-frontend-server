@@ -5,11 +5,21 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI)
+// 自定义card组件
+import Card from '@/components/card'
+import listCard from '@/components/listCard'
+Vue.component('m-card',Card)
+Vue.component('m-list-card',listCard)
 
+import 'swiper/swiper-bundle.css'
+// iconfont
+import '@/assets/iconfont/iconfont.css'
+Vue.use(ElementUI)
+Vue.use(VueAwesomeSwiper)
 // 引入初始化scss
 import './assets/css/style.scss'
 /* eslint-disable no-new */

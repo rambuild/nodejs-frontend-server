@@ -1,0 +1,121 @@
+{
+  "id": "1962059",
+  "name": "LOL移动端",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1251228",
+      "name": "menu",
+      "font_class": "menu",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "4395678",
+      "name": "menu",
+      "font_class": "menu1",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "249354",
+      "name": "新人课程",
+      "font_class": "xinrenkecheng",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1070538",
+      "name": "创意-01",
+      "font_class": "chuangyi01",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "1503881",
+      "name": "double-arrow-top",
+      "font_class": "double-arrow-top",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "1629894",
+      "name": "公文包",
+      "font_class": "icon-test",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "1768806",
+      "name": "书籍",
+      "font_class": "shuji",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "1985079",
+      "name": "创意",
+      "font_class": "chuangyi",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "2127122",
+      "name": "购物袋",
+      "font_class": "bags",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "4572460",
+      "name": "书籍",
+      "font_class": "shuji1",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "5405557",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e733",
+      "unicode_decimal": 59187
+    },
+    {
+      "icon_id": "6129226",
+      "name": "172会员、皇冠、冠军-线性",
+      "font_class": "huiyuanhuangguanguanjun-xianxing",
+      "unicode": "e7af",
+      "unicode_decimal": 59311
+    },
+    {
+      "icon_id": "6877612",
+      "name": "版本",
+      "font_class": "banben",
+      "unicode": "e71f",
+      "unicode_decimal": 59167
+    },
+    {
+      "icon_id": "6888864",
+      "name": "指引",
+      "font_class": "zhiyin",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "8396557",
+      "name": "icon_对局记录",
+      "font_class": "icon_duijujilu",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "8763661",
+      "name": "书籍2",
+      "font_class": "shuji2",
+      "unicode": "e6cc",
+      "unicode_decimal": 59084
+    }
+  ]
+}

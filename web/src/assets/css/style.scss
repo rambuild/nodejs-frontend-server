@@ -13,7 +13,7 @@ body{
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.2em;
-    background-color: #f1f1f1;
+    background-color: rgb(237, 237, 237);
 }
 a{
     color:#999;
@@ -51,7 +51,9 @@ a{
 .flex-column{
     flex-direction: column;
 }
-
+.flex-wrap{
+    flex-wrap: wrap;
+}
 @each $fKey,$fVal in $flex-jc {
     .jc-#{$fKey}{
         justify-content:$fVal;
@@ -84,14 +86,55 @@ a{
             }
             // .mx-0
             .#{$typeKey}x-#{$sizeKey}{
-                #{$typeVal}-left: $sizeVal;
-                #{$typeVal}-right: $sizeVal;
+                #{$typeVal}-left: $sizeVal * $base-spacing-size;
+                #{$typeVal}-right: $sizeVal * $base-spacing-size;
             }
             // .my-0
             .#{$typeKey}y-#{$sizeKey}{
-                #{$typeVal}-top: $sizeVal;
-                #{$typeVal}-bottom: $sizeVal;
+                #{$typeVal}-top: $sizeVal * $base-spacing-size;
+                #{$typeVal}-bottom: $sizeVal * $base-spacing-size;
             }
         }
     }
+}
+
+.btn{
+    border:none;
+    border-radius: 0.1429rem;
+    font-size: map-get($font-sizes, 'sm') * $base-font-size;
+}
+@each $brKey,$brVal in $radius-size {
+    .br-#{$brKey}{
+        border-radius: $brVal;
+    }
+}
+// nav
+.nav{
+    display: flex;
+    padding: 0.75rem 0;
+    .nav-item{
+        color: map-get($colors, 'primary');
+        padding-bottom: 5px;
+        &.active{
+            border-bottom: solid 3px map-get($colors, 'primary');
+        }
+    }
+    &.inverse{
+        .nav-item{
+            color: #fff;
+            &.active{
+                border-bottom-color: #fff;
+            }
+        }
+    }
+}
+.w-100{
+    width: 100%;
+}
+.h-100{
+    height: 100%;
+}
+a{
+    text-decoration: none;
+    color: #000;
 }
