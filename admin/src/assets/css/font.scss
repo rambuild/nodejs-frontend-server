@@ -1,0 +1,35 @@
+//字体大小变量
+$base-font-size: 1rem;
+$font-sizes: (
+  // d 代表 dot .
+    d16: 0.16,
+  d18: 0.18,
+  d2: 0.2,
+  d22: 0.22,
+  d24: 0.24,
+  d26: 0.26,
+  d28: 0.28,
+  d3: 0.3,
+  d32: 0.32,
+  d34: 0.34,
+  d4: 0.4
+);
+
+//字体大小
+@each $sizeKey, $size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size * $base-font-size;
+  }
+}
+
+//字体粗细
+$font-weight: (
+  thin: thin,
+  bold: bold
+);
+
+@each $weightKey, $weight in $font-weight {
+  .fw-#{$weightKey} {
+    font-weight: $weight;
+  }
+}

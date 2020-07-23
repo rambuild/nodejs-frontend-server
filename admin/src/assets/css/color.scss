@@ -1,0 +1,30 @@
+//颜色变量
+$colors: (
+  "primary": #db9e3f,
+  "white": #fff,
+  "light": #f9f9f9,
+  "grey": #999,
+  "e8": #e8e8e8,
+  "666": #666,
+  "dark-1": #343440,
+  "dark-2": #222,
+  333: #333,
+  "black": #000,
+  '02a1e9': #02a1e9,
+  // 下面4个用于英雄详情页面的分数颜色
+    "difficult": #805300,
+  "skills": #1f3695,
+  "attack": #791a16,
+  "survive": #55554f
+);
+
+//文字颜色 & 元素背景色
+@each $colorKey, $color in $colors {
+  .text-#{$colorKey} {
+    color: $color;
+  }
+
+  .bg-#{$colorKey} {
+    background: $color;
+  }
+}

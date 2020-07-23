@@ -77,6 +77,19 @@ const router = new Router({
         }, {
           path: '/admin_user/list',
           component: () => import('@/views/admin_user/list')
+        },
+        
+        {
+          path: '/carousel/create',
+          component: () => import("@/views/carousel/create")
+        },
+        {
+          path: '/carousel/create/:id',
+          component: () => import("@/views/carousel/create"),
+          props: true
+        }, {
+          path: '/carousel/list',
+          component: () => import('@/views/carousel/list')
         }
       ]
     }

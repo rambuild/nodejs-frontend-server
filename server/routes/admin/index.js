@@ -37,7 +37,8 @@ module.exports = app => {
         const model = await req.Model.create(req.body)
         res.send({
             model,
-            msg: "添加成功"
+            msg: "添加成功",
+            status:200
         })
     })
     // 更新
@@ -61,6 +62,7 @@ module.exports = app => {
     app.use('/api/admin/rest/:resource', (req, res, next) => {
         let modelName = require('inflection').classify(req.params.resource)
         req.Model = require(`../../db/model/${modelName}`)
+        console.log(modelName)
         next()
     }, router)
     // 上传图片接口
@@ -115,21 +117,21 @@ module.exports = app => {
             }
         }
     })
-    app.use(async(err,req,res,next)=>{
-        if(err){
-            res.status(err.statusCode).send({
-                msg:err.message
-            })
-        }
-    })
-    app.all('/api/admin/*',(req,res,next)=>{
-        if(!req.headers.authorization){
-            return res.send({
-                status:400,
-                msg:'无效token'
-            })
-        }else{
-            next()
-        }
-    })
+    // app.use(async(err,req,res,next)=>{
+    //     if(err){
+    //         res.status(err.statusCode).send({
+    //             msg:err.message
+    //         })
+    //     }
+    // })
+    // app.all('/api/admin/*',(req,res,next)=>{
+    //     if(!req.headers.authorization){
+    //         return res.send({
+    //             status:400,
+    //             msg:'无效token'
+    //         })
+    //     }else{
+    //         next()
+    //     }
+    // })
 }

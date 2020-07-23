@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <div class="flex jc-between">
-        <el-button type="danger" icon="el-icon-close" @click="delMultiple">删除</el-button>
+      <div class="flex jc-end">
         <div class="flex jc-end">
           <el-col :span="12" class="mr-d2">
             <el-input
@@ -15,12 +14,8 @@
           <el-button type="primary" icon="el-icon-search" @click="searchHero(searchName)">搜索</el-button>
         </div>
       </div>
-      <el-tag>
-        当前英雄共计
-        <strong>{{total}}</strong> 个
-      </el-tag>
-      <el-table @selection-change="getCheckedItems" stripe border :data="list" style="width: 100%">
-        <el-table-column type="selection" width="55"></el-table-column>
+      <el-table stripe border :data="list" style="width: 100%">
+        <el-table-column type="index" label="#" width="55"></el-table-column>
         <el-table-column prop="name" label="英雄名称" width="200"></el-table-column>
         <el-table-column prop="icon" label="头像">
           <template slot-scope="scope">
@@ -67,50 +62,26 @@ export default {
       // 当前页数
       currentPage: 1,
       // 搜索内容
-      searchName: "",
-      // 已勾选文章的 id 集合
-      CheckedIds: []
+      searchName: ""
     };
   },
   created() {
     this.getHeroList();
   },
   methods: {
-    //批量删除
-    delMultiple() {
-      this.$confirm("确认批量删除已选项吗？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        let url = "rest/hero/deleteMany";
-        this.$.delete(url, { data: { ids: this.CheckedIds } }).then(res => {
-          res.data.code === 1 && this.getHeroList();
-        });
-      });
-    },
-    //获取已勾选项
-    getCheckedItems(data) {
-      this.CheckedIds = [];
-      data.forEach(item => {
-        this.CheckedIds.push(item._id);
-      });
-    },
     //获取英雄列表
     getHeroList() {
-      let url = "rest/hero";
+      let url = "rest/heroes";
 
-      this.$.get(url).then(res => {
-        let { code, data, totalCount } = res.data;
-        if (code === 1) {
-          this.list = data;
-          this.total = totalCount;
+      this.$http.get(url).then(res => {
+        if(res.data.status == 200){
+          this.list = res.data.data
         }
       });
     },
     //编辑
     edit(id) {
-      this.$router.push(`/hero/edit/${id}`);
+      this.$router.push(`/heroes/create/${id}`);
     },
     //删除
     del(id) {
@@ -119,10 +90,17 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        let url = `rest/hero/delet/${id}`;
-
-        this.$.delete(url).then(res => {
-          res.data.code === 1 && this.getHeroList();
+        let url = `rest/heroes/${id}`;
+        this.$http.delete(url).then(res => {
+          console.log(res.data)
+          if(res.data.status == 200){
+            this.$message.success({
+              message:res.data.msg,
+              center:true,
+              duration:1500
+            })
+            this.getHeroList()
+          }
         });
       });
     },
@@ -137,7 +115,7 @@ export default {
       }
 
       let url = `rest/hero/search?name=${name}`;
-      this.$.get(url).then(res => {
+      this.$http.get(url).then(res => {
         let { code, data, total } = res.data;
         if (code === 1) {
           this.total = total;

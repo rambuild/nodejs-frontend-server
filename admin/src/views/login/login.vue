@@ -1,7 +1,7 @@
 <template>
     <div class="login-container">
         <div class="login text-white">
-            <h3 class="title flex jc-center">王者荣耀后台</h3>
+            <h3 class="title flex jc-center">王者荣耀移动端后台</h3>
             <el-input v-model.trim="info.username" placeholder="账号" />
             <el-input
                 show-password
@@ -12,15 +12,6 @@
 
             <div class="login-btn">
                 <el-button
-                    v-if="!ifCanLogin"
-                    title="填写完整再提交"
-                    type="primary"
-                    disabled
-                    class="width-100p"
-                >登录</el-button>
-                <el-button
-                    v-else
-                    :loading="loading"
                     type="primary"
                     class="width-100p"
                     @click.native.prevent="login"
@@ -38,18 +29,11 @@ export default {
     data() {
         return {
             info: {
-                username: "",
-                password: ""
+                username: "zjl",
+                password: "1"
             },
             loading: false
         };
-    },
-    computed: {
-        // 是否可以登录
-        ifCanLogin() {
-            let { username, password } = this.info;
-            return username && password;
-        }
     },
     methods: {
         //登录
@@ -57,9 +41,10 @@ export default {
             this.loading = true;
             this.$http.post("login", this.info).then(res => {
                 this.loading = false;
-                const { code, token } = res.data;
-                if (code === 1) {
-                    localStorage.token = token;
+                const { status, token } = res.data;
+                console.log(res.data)
+                if (status === 200) {
+                    sessionStorage.token = token;
                     this.$router.push("/");
                 } else if (code === 101) {
                     //账号不存在

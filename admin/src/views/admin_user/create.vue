@@ -3,7 +3,7 @@
         <h1>{{id ? '编辑' : '新建'}}管理员</h1>
         <el-form label-width="120px" @submit.native.prevent="save">
             <el-form-item label="用户名">
-                <el-input v-model.trim="info.name"></el-input>
+                <el-input v-model.trim="info.username"></el-input>
             </el-form-item>
             <el-form-item label="密码">
                 <el-input
@@ -23,15 +23,6 @@
 </template>
 
 <script>
-let info = {
-    //用户名
-    name: "",
-    //密码
-    password: "",
-    //备注
-    remark: ""
-};
-
 export default {
     name: "adminCreate",
     props: {
@@ -39,7 +30,10 @@ export default {
     },
     data() {
         return {
-            info
+            info: {
+                username: "",
+                password: "",
+            }
         };
     },
     created() {
@@ -55,11 +49,10 @@ export default {
         },
         //获取管理员信息
         getInfo() {
-            let url = `rest/admin/${this.id}`;
-            this.$.get(url).then(res => {
-                let { code, data } = res.data;
-                if (code === 1) {
-                    this.info = data;
+            let url = `rest/AdminUser/${this.id}`;
+            this.$http.get(url).then(res => {
+                if (res.data.status == 200) {
+                    this.info = res.data.data;
                 }
             });
         },
@@ -78,12 +71,12 @@ export default {
                 url = "/register";
             }
 
-            this.$({
+            this.$http({
                 method,
                 url,
                 data
             }).then(res => {
-                if (res.data.code === 1) {
+                if (res.data.status == 200) {
                     this.$router.push("/admin_user/list");
                 }
             });

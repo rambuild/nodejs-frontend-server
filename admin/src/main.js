@@ -13,6 +13,24 @@ Vue.prototype.$http = axios
 
 Vue.use(ElementUI)
 
+//所有组件都应用
+Vue.mixin({
+  computed: {
+    uploadUrl() {
+      return 'http://localhost:3000/api/admin/uploads'
+    }
+  },
+  methods: {
+    getAuthorization() {
+      return {
+        Authorization: `Bearer ${sessionStorage.token || ''}`
+      }
+    }
+  }
+})
+
+// 公共scss
+import '@/assets/css/common.scss'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
