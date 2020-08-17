@@ -1,20 +1,14 @@
-const mongoose = require('mongoose')
+const mongoose = require('../index')
 
 const schema = new mongoose.Schema({
   //英雄名称
-  name: {
-    type: String
-  },
+  name: { type: String },
   // 背景图
   banner: { type: String },
   //头像
-  avatar: {
-    type: String
-  },
+  avatar: { type: String },
   //称号
-  title: {
-    type: String
-  },
+  title: { type: String },
   //英雄分类 (单个英雄可能属于多个分类，所以这里使用数组方式)
   categories: [
     {
@@ -105,4 +99,4 @@ const schema = new mongoose.Schema({
   // 自动添加 创建时间 和 更新时间 字段 
   { timestamps: true })
 
-module.exports = mongoose.model('Hero', schema)
+module.exports = mongoose.model('Hero', schema, 'heroes')

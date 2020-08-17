@@ -7,6 +7,11 @@ module.exports = app => {
     router.get('/', async (req, res) => {
         let queryOptions = {}
         if (req.Model.modelName == 'Category') {
+            const selCat = req.query.selCat
+            // 先找出上级分类
+            const parent = await req.Model.find({ name: selCat })
+            // 再找出上级分类为指定名称的分类列表
+            selCat ? queryOptions.where = { parent } : ''
             queryOptions.populate = 'parent'
         }
         if (req.Model.modelName == 'Hero') {
@@ -38,7 +43,7 @@ module.exports = app => {
         res.send({
             model,
             msg: "添加成功",
-            status:200
+            status: 200
         })
     })
     // 更新
@@ -51,6 +56,12 @@ module.exports = app => {
     })
     // 删除分类
     router.delete('/:id', async (req, res) => {
+        if (req.Model.modelName == 'AdminUser' && req.params.id == '5f1a787bf9a551345070d706') {
+            return res.status(400).send({
+                status: 400,
+                msg: '管理员账号不允许删除',
+            })
+        }
         let result = await req.Model.findByIdAndDelete(req.params.id)
         res.send({
             status: 200,
@@ -62,7 +73,6 @@ module.exports = app => {
     app.use('/api/admin/rest/:resource', (req, res, next) => {
         let modelName = require('inflection').classify(req.params.resource)
         req.Model = require(`../../db/model/${modelName}`)
-        console.log(modelName)
         next()
     }, router)
     // 上传图片接口
@@ -70,6 +80,7 @@ module.exports = app => {
     app.post('/api/admin/uploads', upload.single('file'), (req, res) => {
         const file = req.file
         file.url = `http://localhost:3000/uploads/${file.filename}`
+        file.status = 200
         res.send(file)
     })
     // 查找用户接口
@@ -88,31 +99,32 @@ module.exports = app => {
         const { username, password } = req.body
         const User = require('../../db/model/AdminUser')
         const user = await User.findOne({ username }).select('+password')
+        console.log(req)
         if (!user) {
             return res.status(404).send({
                 status: 404,
                 msg: `未找到用户:${username}`
             })
         } else {
-            const isValid = require('bcrypt').compareSync(password,user.password)
-            if(!isValid){
+            const isValid = require('bcrypt').compareSync(password, user.password)
+            if (!isValid) {
                 return res.status(400).send({
-                    status:400,
-                    msg:"用户名或密码错误"
+                    status: 400,
+                    msg: "用户名或密码错误"
                 })
-            }else{
+            } else {
                 const jwt = require('jsonwebtoken')
                 const payload = {
-                    id:user._id,
-                    username:user.username,
-                    exp:Date.now() + (1000*60*60*24)
+                    id: user._id,
+                    username: user.username,
+                    exp: Date.now() + (1000 * 60 * 60 * 24)
                 }
-                const token = jwt.sign(payload,app.get('jwtSecret'))
+                const token = jwt.sign(payload, app.get('jwtSecret'))
                 res.send({
-                    status:200,
-                    msg:'登陆成功',
-                    user:user.username,
-                    token:'Bearer ' + token
+                    status: 200,
+                    msg: '登陆成功',
+                    user: user.username,
+                    token: 'Bearer ' + token
                 })
             }
         }

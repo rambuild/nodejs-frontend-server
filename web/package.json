@@ -5,13 +5,16 @@
   "author": "yh",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --open --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --host 192.168.1.15 --open --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "dayjs": "^1.8.30",
     "element-ui": "^2.13.2",
     "node-sass": "^4.14.1",
+    "nprogress": "^0.2.0",
     "sass-loader": "^7.3.1",
     "swiper": "^6.0.4",
     "vue": "^2.5.2",

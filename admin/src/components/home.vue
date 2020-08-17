@@ -8,7 +8,7 @@
                     tag="div"
                     class="width-230 flex jc-center ai-center height-50 text-white bg-02a1e9 sidebar-title-wrapper"
                 >
-                    <h1 class="sidebar-title">王者荣耀后台</h1>
+                    <h1 class="sidebar-title">后台管理界面</h1>
                 </router-link>
 
                 <el-scrollbar wrap-class="scrollbar-wrapper">
@@ -46,7 +46,7 @@
                 </el-header>
 
                 <el-main>
-                    <router-view></router-view>
+                    <router-view :key="$route.path"></router-view>
                 </el-main>
             </el-container>
         </el-container>
@@ -94,11 +94,11 @@ export default {
                     itemsGroup: [
                         {
                             itemName: "新建铭文",
-                            path: "/rune/create"
+                            path: "/"
                         },
                         {
                             itemName: "铭文列表",
-                            path: "/rune/list"
+                            path: "/"
                         }
                     ]
                 },
@@ -171,7 +171,7 @@ export default {
             }).then(() => {
                 sessionStorage.clear();
                 this.$router.push("/login");
-            }).catch(_=>{})
+            }).catch(_ => { })
         }
     }
 };
@@ -198,7 +198,6 @@ export default {
 .el-aside {
     color: #333;
     margin-top: 50px;
-
     .sidebar-title-wrapper {
         position: fixed;
         top: 0;
@@ -207,20 +206,5 @@ export default {
             font-size: 18px;
         }
     }
-}
-</style>
-
-// 侧边栏滚动条样式
-<style lang="scss">
-.el-scrollbar__wrap {
-    overflow-x: hidden;
-    .el-scrollbar__view {
-        height: 100%;
-    }
-}
-
-.el-scrollbar {
-    width: 230px;
-    height: 100%;
 }
 </style>

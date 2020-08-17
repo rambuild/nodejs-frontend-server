@@ -26,49 +26,28 @@
                 <span>收起</span>
             </div>
         </div>
-        <!-- <div class="card bg-white px-4">
-            <div class="card-header d-flex py-3 text-gray3">
-                <i class="iconfont icon-menu"></i>
-                <div class="fs-xl flex-1 px-2">新闻资讯</div>
-                <i class="iconfont icon-menu1"></i>
-            </div>
-            <div class="card-body">
-                <div class="nav jc-between">
-                    <div class="nav-item active">
-                        <div class="nav-link">热门</div>
-                    </div>
-                    <div class="nav-item">
-                        <div class="nav-link">新闻</div>
-                    </div>
-                    <div class="nav-item">
-                        <div class="nav-link">公告</div>
-                    </div>
-                    <div class="nav-item">
-                        <div class="nav-link">活动</div>
-                    </div>
-                    <div class="nav-item">
-                        <div class="nav-link">赛事</div>
-                    </div>
-                </div>
-                <div class="body-content">
-                    <swiper @click-slide="handleClickSlide">
-                        <swiper-slide v-for="i in 5" :key="i">
-                            <div v-for="i in 5" :key="i" class="py-2 d-flex">
-                                <span>公告</span>
-                                <span class="flex-1 pl-2">7月22日体验服停机更新公告</span>
-                                <span>07/22</span>
-                            </div>
-                        </swiper-slide>
-                    </swiper>
-                </div>
-            </div>
-        </div>-->
-        <m-list-card title="测试" icon="menu" :data="newsList">
+        <m-list-card title="新闻资讯" icon="menu" :data="newsList">
             <template #customeSlot="{sendData}">
-                <div v-for="(i,index) in sendData.data" :key="index" class="py-2 d-flex">
-                    <span>{{i.type}}</span>
-                    <span class="flex-1 pl-2">{{i.subTitle}}</span>
-                    <span>{{i.date}}</span>
+                <div
+                    v-for="(i,index) in sendData.newsList"
+                    :key="index"
+                    class="py-2 d-flex newsContent"
+                >
+                    <span class="text-primary">{{i.categoryName}}</span>
+                    <span class="flex-1 px-2 ellipsis">{{i.title}}</span>
+                    <span class="text-gray6">{{i.createdAt | dateFormat}}</span>
+                </div>
+            </template>
+        </m-list-card>
+        <m-list-card title="英雄列表" icon="huiyuanhuangguanguanjun-xianxing" :data="heroList">
+            <template #customeSlot="{sendData}">
+                <div class="d-flex flex-wrap">
+                    <div class="heroBox" v-for="(i,index) in sendData.heroList" :key="index">
+                        <div class="heroItem d-flex flex-column jc-center ai-center">
+                            <img :src="i.avatar" alt />
+                            <span class="fs-sm p-2">{{i.name}}</span>
+                        </div>
+                    </div>
                 </div>
             </template>
         </m-list-card>
@@ -76,6 +55,7 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
 export default {
     data() {
         return {
@@ -93,51 +73,28 @@ export default {
                     clickable: true
                 }
             },
-            newsList: [
-                {
-                    title: '热门',
-                    data: new Array(5).fill({}).map(v => ({
-                        type: '热门公告',
-                        subTitle: '7月22日体验服停机更新公告',
-                        date: '06/16'
-                    }))
-                },
-                {
-                    title: '新闻',
-                    data: new Array(5).fill({}).map(v => ({
-                        type: '新闻公告',
-                        subTitle: '7月22日体验服停机更新公告',
-                        date: '06/16'
-                    }))
-                },
-                {
-                    title: '公告',
-                    data: new Array(5).fill({}).map(v => ({
-                        type: '公告公告',
-                        subTitle: '7月22日体验服停机更新公告',
-                        date: '06/16'
-                    }))
-                },
-                {
-                    title: '活动',
-                    data: new Array(5).fill({}).map(v => ({
-                        type: '活动公告',
-                        subTitle: '7月22日体验服停机更新公告',
-                        date: '06/16'
-                    }))
-                },
-                {
-                    title: '赛事',
-                    data: new Array(5).fill({}).map(v => ({
-                        type: '赛事公告',
-                        subTitle: '7月22日体验服停机更新公告',
-                        date: '06/16'
-                    }))
-                }
-            ]
+            newsList: [],
+            heroList: []
         }
     },
+    filters: {
+        dateFormat(val) {
+            return dayjs(val).format('MM/DD')
+        }
+    },
+    created() {
+        this.getNewsList()
+        this.getHeroList()
+    },
     methods: {
+        async getNewsList() {
+            let { data: res } = await this.$http.get('news/list')
+            this.newsList = res.data
+        },
+        async getHeroList() {
+            let { data: res } = await this.$http.get('heroes/list')
+            this.heroList = res.data
+        }
     }
 }
 </script>
@@ -202,6 +159,15 @@ export default {
         i,
         span {
             font-size: 12px !important;
+        }
+    }
+}
+.heroBox {
+    width: 20%;
+    .heroItem {
+        margin-left: 4px;
+        img {
+            width: 100%;
         }
     }
 }

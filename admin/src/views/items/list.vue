@@ -1,28 +1,6 @@
 <template>
     <div class="container">
         <div>
-            <div class="flex jc-between">
-                <el-button type="danger" icon="el-icon-close" @click="delMultiple">删除</el-button>
-                <div class="flex jc-end">
-                    <el-col :span="12" class="mr-d2">
-                        <el-input
-                            @keyup.native.enter="searchItem(searchName)"
-                            placeholder="物品名称"
-                            clearable
-                            v-model.trim="searchName"
-                        ></el-input>
-                    </el-col>
-                    <el-button
-                        type="primary"
-                        icon="el-icon-search"
-                        @click="searchItem(searchName)"
-                    >搜索</el-button>
-                </div>
-            </div>
-            <el-tag>
-                当前物品共计
-                <strong>{{total}}</strong> 个
-            </el-tag>
             <el-table
                 @selection-change="getCheckedItems"
                 stripe
@@ -55,14 +33,6 @@
                 </el-table-column>
             </el-table>
         </div>
-        <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="total"
-            :pageSize="10"
-            :current-page.sync="currentPage"
-            @current-change="getItemsList"
-        ></el-pagination>
     </div>
 </template>
 
@@ -71,15 +41,7 @@ export default {
     name: "itemList",
     data() {
         return {
-            list: [],
-            // 总条数
-            total: 0,
-            // 当前页数
-            currentPage: 1,
-            // 搜索内容
-            searchName: "",
-            // 已勾选文章的 id 集合
-            CheckedIds: []
+            list: []
         };
     },
     created() {
@@ -111,7 +73,6 @@ export default {
             let url = `rest/items?page=${this.currentPage}`;
             this.$http.get(url).then(res => {
                 let { status, data } = res.data;
-                console.log(res.data)
                 if (status === 200) {
                     this.list = data;
                 }
@@ -119,7 +80,7 @@ export default {
         },
         //编辑
         edit(id) {
-            this.$router.push(`/items/edit/${id}`);
+            this.$router.push(`/items/create/${id}`);
         },
         //删除
         del(id) {
@@ -131,11 +92,7 @@ export default {
                 let url = `rest/items/${id}`;
                 this.$http.delete(url).then(res => {
                     if (res.data.status === 200) {
-                        this.$message.success({
-                            message: res.data.msg,
-                            duration:1500,
-                            center:true
-                        })
+                        this.$msg('success',res.data.msg)
                         this.getItemsList()
                     }
                 });

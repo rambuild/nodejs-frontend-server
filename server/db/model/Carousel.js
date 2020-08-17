@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('../index')
 
 const schema = new mongoose.Schema({
   //图片地址

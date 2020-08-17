@@ -1,12 +1,12 @@
 //分类模型
-const mongoose = require('mongoose')
+const mongoose = require('../index')
 
 //创建分类模型的字段
 const schema = new mongoose.Schema({
   //分类名称
-  name: String,
+  name: { type: String },
   //上级分类
-  parent: mongoose.SchemaTypes.ObjectId
+  parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }
 })
 
 //导出一个Category模型

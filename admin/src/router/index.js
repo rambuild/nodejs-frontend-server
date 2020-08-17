@@ -78,7 +78,7 @@ const router = new Router({
           path: '/admin_user/list',
           component: () => import('@/views/admin_user/list')
         },
-        
+
         {
           path: '/carousel/create',
           component: () => import("@/views/carousel/create")
@@ -96,11 +96,18 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (!to.meta.isPublic && !sessionStorage.getItem('token')) {
     return next('/login')
+  } else {
+    next()
+    // let { data: res } = await Vue.prototype.$http.post('/verifyToken')
+    // if (res.status == 200) {
+    //   next()
+    // }else{
+    //   Vue.prototype.$msg('error',res.msg)
+    // }
   }
-  next()
 })
 
 export default router

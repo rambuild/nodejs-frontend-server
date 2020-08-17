@@ -53,9 +53,8 @@ export default {
         //获取物品信息
         getInfo() {
             this.$http.get(`rest/items/${this.id}`).then(res => {
-                let { code, data } = res.data;
-                if (code === 1) {
-                    this.info = data;
+                if(res.data.status == 200){
+                    this.info = res.data.data;
                 }
             });
         },
@@ -77,11 +76,7 @@ export default {
                 data
             }).then(res => {
                 if (res.data.status === 200) {
-                    this.$message.success({
-                        message: res.data.msg,
-                        duration: 1500,
-                        center: true
-                    })
+                    this.$msg('success',res.data.msg)
                     this.$router.push("/items/list");
                 }
             });

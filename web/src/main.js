@@ -6,8 +6,12 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'nprogress/nprogress.css'
 
 Vue.config.productionTip = false
+
+import axios from './http'
+Vue.prototype.$http = axios
 
 // 自定义card组件
 import Card from '@/components/card'

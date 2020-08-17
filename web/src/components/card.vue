@@ -1,6 +1,6 @@
 <template>
     <div class="card bg-white px-4 my-3">
-        <div class="card-header d-flex py-3 text-gray3">
+        <div class="card-header d-flex pt-3 pb-2 text-gray3">
             <i class="iconfont" :class="`icon-${icon}`"></i>
             <div class="fs-lg flex-1 px-2">{{title}}</div>
             <i class="iconfont icon-menu1"></i>

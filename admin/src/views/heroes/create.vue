@@ -34,7 +34,7 @@
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
                     </el-form-item>
-                    <el-form-item label="分类">
+                    <el-form-item label="英雄分类">
                         <el-select filterable v-model="info.categories" multiple>
                             <el-option
                                 v-for="(item, index) in categoryList"
@@ -308,7 +308,7 @@ let info = {
 export default {
     name: "heroCreate",
     props: {
-        id: {}
+        id: { type: String }
     },
     data() {
         return {
@@ -351,7 +351,7 @@ export default {
         },
         //获取英雄分类
         getCategories() {
-            let url = "rest/categories";
+            let url = "rest/categories?selCat=英雄分类";
             this.$http.get(url).then(res => {
                 if (res.data.status === 200) {
                     this.categoryList = res.data.data;
@@ -397,14 +397,9 @@ export default {
                 method,
                 data
             }).then(res => {
-                // res.data.code === 1 && this.$router.push("/hero/list");
                 console.log(res.data)
                 if (res.data.status == 200) {
-                    this.$message.success({
-                        message: res.data.msg,
-                        center: true,
-                        duration: 1500
-                    })
+                    this.$msg('success', res.data.msg)
                     this.$router.push("/heroes/list")
                 }
             });
@@ -475,7 +470,6 @@ export default {
          */
         getHeroesList() {
             let url = "rest/hero?pageSize=all";
-
             this.$http.get(url).then(res => {
                 if (res.data.status == 200) {
                     this.heroList = res.data.data;

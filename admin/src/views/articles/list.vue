@@ -80,15 +80,11 @@ export default {
                 let url = `rest/articles/${id}`;
                 this.$http.delete(url).then(res => {
                     if (res.data.status == 200) {
-                        this.$message.success({
-                            message: res.data.msg,
-                            center: true,
-                            duration: 1500
-                        })
+                        this.$msg('success',res.data.msg)
                         this.getArticleList()
                     }
                 });
-            });
+            }).catch(()=>{})
         },
     }
 };

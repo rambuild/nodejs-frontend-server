@@ -12,9 +12,9 @@
                     placeholder="密码不会以明文显示，如需修改，直接输入内容保存"
                 ></el-input>
             </el-form-item>
-            <el-form-item label="备注">
+            <!-- <el-form-item label="备注">
                 <el-input v-model.trim="info.remark"></el-input>
-            </el-form-item>
+            </el-form-item>-->
             <el-form-item>
                 <el-button type="primary" native-type="submit">保存</el-button>
             </el-form-item>
@@ -26,7 +26,7 @@
 export default {
     name: "adminCreate",
     props: {
-        id: {}
+        id: { type: String }
     },
     data() {
         return {
@@ -44,7 +44,7 @@ export default {
             if (this.id) {
                 this.getInfo();
             } else {
-                this.info = JSON.parse(JSON.stringify(info));
+                this.info = JSON.parse(JSON.stringify(this.info));
             }
         },
         //获取管理员信息
@@ -60,7 +60,7 @@ export default {
         save() {
             let { id, info } = this;
             let method;
-            let url = "rest/admin";
+            let url = "rest/AdminUser";
             let data = info;
 
             if (id) {
@@ -68,15 +68,14 @@ export default {
                 url = `${url}/${id}`;
             } else {
                 method = "post";
-                url = "/register";
             }
-
             this.$http({
                 method,
                 url,
                 data
             }).then(res => {
                 if (res.data.status == 200) {
+                    this.$msg('success', res.data.msg)
                     this.$router.push("/admin_user/list");
                 }
             });

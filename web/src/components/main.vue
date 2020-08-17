@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <div class="extends bg-gray3 d-flex text-white">
+        <div class="extends downloadTips bg-gray3 d-flex text-white">
             <div class="logo-wrapper d-flex ai-center flex-1 px-3 py-2">
                 <img src="../assets/images/logo.png" height="30" alt class="br-sm" />
                 <div class="pl-3">
@@ -40,7 +40,6 @@ export default {
     },
     methods: {
         download() {
-            console.log('aaa')
         }
     }
 }
@@ -48,4 +47,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='scss'>
+.downloadTips{
+    position: sticky;
+    top:0;
+    z-index: 999;
+}
 </style>

@@ -1,14 +1,9 @@
 <template>
     <div class="container">
         <div>
-            <el-table
-                stripe
-                border
-                :data="list"
-                style="width: 100%"
-            >
-                <el-table-column type="index" label="#" width="55"></el-table-column>
-                <el-table-column prop="username" label="用户名" width="200"></el-table-column>
+            <el-table stripe border :data="list" style="width: 100%">
+                <el-table-column type="index" label="#" width="80"></el-table-column>
+                <el-table-column prop="username" label="用户名"></el-table-column>
                 <el-table-column label="操作" width="350px">
                     <template slot-scope="scope">
                         <el-button
@@ -34,7 +29,7 @@
             :pageSize="10"
             :current-page.sync="currentPage"
             @current-change="getAdmin"
-        ></el-pagination> -->
+        ></el-pagination>-->
     </div>
 </template>
 
@@ -71,9 +66,12 @@ export default {
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
-                let url = `rest/admin/delet/${id}`;
-                this.$.delete(url).then(res => {
-                    res.data.code === 1 && this.getAdmin();
+                let url = `rest/admin_user/${id}`;
+                this.$http.delete(url).then(res => {
+                    if (res.data.status == 200) {
+                        this.$msg('success',res.data.msg)
+                        this.getAdmin()
+                    }
                 });
             });
         },

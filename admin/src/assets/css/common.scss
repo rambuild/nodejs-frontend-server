@@ -7,7 +7,9 @@
 @import "./position.scss";
 @import "./variable.scss";
 @import "./element-ui.scss";
-
+*{
+  box-sizing: border-box;
+}
 html,
 body {
   padding: 0;

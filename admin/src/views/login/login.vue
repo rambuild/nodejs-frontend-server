@@ -17,8 +17,6 @@
                     @click.native.prevent="login"
                 >登录</el-button>
             </div>
-
-            <div class="tips">账号未注册时会自动注册</div>
         </div>
     </div>
 </template>
@@ -29,8 +27,8 @@ export default {
     data() {
         return {
             info: {
-                username: "zjl",
-                password: "1"
+                username: "admin",
+                password: "123456"
             },
             loading: false
         };
@@ -46,21 +44,12 @@ export default {
                 if (status === 200) {
                     sessionStorage.token = token;
                     this.$router.push("/");
-                } else if (code === 101) {
+                    this.$msg('success',res.data.msg)
+                } else{
                     //账号不存在
-                    this.register();
+                    this.$msg('error',res.data.msg)
                 }
-            });
-        },
-        //注册
-        register() {
-            let { info } = this;
-
-            this.$http.post("register", info).then(res => {
-                if (res.data.code === 1) {
-                    this.login();
-                }
-            });
+            })
         }
     }
 };
@@ -83,13 +72,6 @@ export default {
 
         .login-btn {
             margin-top: 30px;
-        }
-
-        .tips {
-            font-size: 12px;
-            margin-top: 20px;
-            text-align: right;
-            color: #ffffff;
         }
     }
 }

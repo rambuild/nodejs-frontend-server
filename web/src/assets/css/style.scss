@@ -20,7 +20,6 @@ a{
 }
 
 // colors
-
 @each $colorKey,$color in $colors {
     .text-#{$colorKey}{
         color: $color;
@@ -113,9 +112,10 @@ a{
     display: flex;
     padding: 0.75rem 0;
     .nav-item{
-        color: map-get($colors, 'primary');
+        color: map-get($colors, 'gray3');
         padding-bottom: 5px;
         &.active{
+            color: map-get($colors, 'primary');
             border-bottom: solid 3px map-get($colors, 'primary');
         }
     }
@@ -137,4 +137,11 @@ a{
 a{
     text-decoration: none;
     color: #000;
+}
+// text-overflow
+.ellipsis{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

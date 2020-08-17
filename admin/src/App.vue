@@ -22,4 +22,16 @@ body {
         text-align: center !important;
     }
 }
+.el-aside {
+    .el-scrollbar {
+        border: none;
+        width: 230px;
+        .el-scrollbar__wrap {
+            overflow: hidden;
+            .el-scrollbar__view {
+                height: 100%;
+            }
+        }
+    }
+}
 </style>

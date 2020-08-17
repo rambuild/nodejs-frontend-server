@@ -5,13 +5,20 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'nprogress/nprogress.css'
+import Vue2Editor from "vue2-editor"
 
 import axios from './http'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
+Vue.use(Vue2Editor)
 Vue.use(ElementUI)
+
+import customMessage from './message'
+// 挂载自定义提示的message
+Vue.prototype.$msg = customMessage
 
 //所有组件都应用
 Vue.mixin({
@@ -23,7 +30,7 @@ Vue.mixin({
   methods: {
     getAuthorization() {
       return {
-        Authorization: `Bearer ${sessionStorage.token || ''}`
+        Authorization: `${sessionStorage.token || ''}`
       }
     }
   }

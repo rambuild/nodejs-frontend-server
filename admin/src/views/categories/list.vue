@@ -4,12 +4,12 @@
         <el-table :data="items" style="width: 100%">
             <el-table-column type="index" label="#" width="100"></el-table-column>
             <el-table-column prop="_id" label="ID" width="260"></el-table-column>
-            <el-table-column label="上级分类" width="180">
+            <el-table-column label="上级分类">
                 <template slot-scope="scope">
-                    <p>{{scope.row.parent?scope.row.parent.name:''}}</p>
+                    <el-tag v-if="scope.row.parent">{{ scope.row.parent.name }}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="name" label="分类名称" width="180"></el-table-column>
+            <el-table-column prop="name" label="分类名称"></el-table-column>
             <el-table-column label="操作" width="180">
                 <template slot-scope="scope">
                     <el-button
@@ -44,14 +44,10 @@ export default {
             }).then(async _ => {
                 let { data: res } = await this.$http.delete(`/rest/categories/${scope.row._id}`)
                 if (res.status == 200) {
-                    this.$message.success({
-                        message: res.msg,
-                        center: true,
-                        duration: 1500
-                    })
+                    this.$msg('success', res.msg)
                     this.getList()
                 }
-            }).catch(e=>{})
+            }).catch(e => { })
 
         }
     },

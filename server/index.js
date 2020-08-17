@@ -11,7 +11,7 @@ app.set('jwtSecret','rambuild')
 
 // bodyParser中间件
 const bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended : false }))
+app.use(bodyParser.urlencoded({ extended : true }))
 app.use(bodyParser.json())
 
 // 静态资源
@@ -19,31 +19,8 @@ app.use('/uploads',express.static(__dirname + '/uploads'))
 
 // 引入admin后台路由
 require('./routes/admin/index')(app)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 引入web前端路由
+require('./routes/web/index')(app)
 
 app.listen(3000,(err)=>{
     if(err){
